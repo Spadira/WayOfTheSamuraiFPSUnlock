@@ -82,9 +82,3 @@ at the end of the .text section, so the file layout and section sizes are untouc
   * SetFrameRate (0x4034d1) - startup default.
 
 The engine's content rate stays at 30 ticks.
-
-
-LICENCE / SHARING
------------------
-This package contains NO game files - only scripts that modify your own
-legally obtained copy. Share it freely.
