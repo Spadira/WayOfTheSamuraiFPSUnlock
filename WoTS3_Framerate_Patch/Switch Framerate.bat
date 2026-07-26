@@ -21,7 +21,7 @@ pause
 exit /b 1
 
 
-rem ---- first run: Backup Original :) -----------------------
+rem ---- first run: snapshot the untouched exe as .orig -----------------------
 rem NOTE: label calls are done at top level, never inside a parenthesised
 rem block - cmd cannot resolve "call :label" from inside one.
 :make_orig
@@ -68,13 +68,13 @@ echo ==================================================
 echo.
 call :show_current
 echo.
-echo    All options run CUTSCENES AT 30 FPS.
-echo    Only gameplay changes.
+echo    All options run CUTSCENES AT 30 FPS, which is the
+echo    rate they were authored for. Only gameplay changes.
 echo.
-echo      [1]   30 fps  - originald
+echo      [1]   30 fps  - original, completely unmodified
 echo      [2]   60 fps  - recommended
-echo      [3]   90 fps  - EXPERIMENTAL, ;p
-echo      [4]  120 fps  - EXPERIMENTAL, ;p
+echo      [3]   90 fps  - EXPERIMENTAL, not play-tested
+echo      [4]  120 fps  - EXPERIMENTAL, not play-tested
 echo.
 echo      [Q]  quit
 echo.

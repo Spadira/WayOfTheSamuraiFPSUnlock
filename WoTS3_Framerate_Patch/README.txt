@@ -10,16 +10,24 @@ Orignal PC port is 30 fps. This patch converts to 60/90/120 fps.
 Cutscenes are deliberately left at 30 fps. Their sequencing is tied to the render rate, so running them faster breaks them hardcore. 
 30 keeps them paced correctly. If you can get it fixed -- please contribute!
 
-REQUIREMENTS
-------------
-GOG build of Way of the Samurai 3. Steam build -MAY- work if de-encrytped.
 
-  Known-good WayOfTheSamurai3.exe
-    size   : 5,697,536 bytes
-    SHA256 : ED1552D19EF3FAA7959510EEB22D3A69B9B4A180A5C00923238FDA7EF3E00301
+WHICH VERSIONS WORK
+-------------------
+Both PC releases are supported. The patcher works out which one it is
+sitting next to and applies the matching addresses.
 
-The patcher should be safe to test, it checks all 18 patch sites byte-for-byte against your exe 
-and refuses to write anything if they do not match.
+  GOG    WayOfTheSamurai3.exe
+         size   : 5,697,536 bytes
+         SHA256 : ED1552D19EF3FAA7959510EEB22D3A69B9B4A180A5C00923238FDA7EF3E00301
+
+  Steam  WayOfTheSamurai3.exe
+         size   : 5,806,592 bytes
+         SHA256 : F16D96E61E53BAD5DF5EC38E18AE415C80A0B054A0041C8B17A8C1FDFB23B28E
+
+
+Other builds are not supported, but trying is safe: the patcher checks
+every patch site byte-for-byte against your exe and refuses to write
+anything if they do not match.
 
 
 INSTALL
@@ -47,22 +55,14 @@ Close the game first, of course.
 90 and 120 are built the same way and verified to launch and apply
 correctly, but I didn't play through them. Might still be some minigame, etc broken.
 
+
 UNINSTALL
 ---------
-Run "Switch Framerate.bat" and choose [1]. That restores the original.
-You can then delete the .60fps_v9 / .90fps_v9 /
-.120fps_v9 files.
+Run "Switch Framerate.bat" and choose [1]. That restores the original
+exe exactly. You can then delete the .60fps_v9 / .90fps_v9 /
+.120fps_v9 files and the patch files if you want.
 
-STEAM VERSION
--------------
-Untested - this was developed against the GOG build only.
-
-Just run Install.bat and see. If the Steam exe happens to be the same
-build, it will work. If it differs at all, the patcher stops and tells
-you, without modifying anything.
-
-Be aware the Steam release may be wrapped in SteamStub DRM, which
-encrypts the executable's code section on disk. May work if decrypted.
+On Steam you can also just use "Verify integrity of game files".
 
 
 Summary
@@ -85,9 +85,3 @@ at the end of the .text section, so the file layout and section sizes are untouc
   * SetFrameRate (0x4034d1) - startup default.
 
 The engine's content rate stays at 30 ticks.
-
-
-LICENCE / SHARING
------------------
-This package contains NO game files - only scripts that modify your own
-legally obtained copy. Share it freely.
