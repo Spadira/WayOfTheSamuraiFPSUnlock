@@ -1,10 +1,8 @@
 # WayOfTheSamuraiFPSUnlock
 Allows WOTS 3 and 4 to play at 60/90/120 FPS.
 
-================================================================
   Way of the Samurai 3 and 4 (PC) - Framerate Patch
   60 / 90 / 120 fps gameplay, with cutscenes kept at 30 fps
-================================================================
 
 WHAT IT DOES
 ------------
