@@ -53,6 +53,6 @@ You can then delete the .60fps_v9 / .90fps_v9 /
 STEAM VERSION
 -------------
 WOTS3 should work out of box for STEAM. WOTS4 requires a decrypted .exe due to
-STEAM DRAM. STEAMLESS should work.
+STEAM encryption. STEAMLESS should work to decrypt.
 
 The engine's content rate stays at 30 ticks.
