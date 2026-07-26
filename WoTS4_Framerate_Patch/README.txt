@@ -24,25 +24,36 @@ Correct at every rate:
     so their scripted sequencing stays correct
 
 
-REQUIREMENTS
-------------
-The DRM-free GOG build of Way of the Samurai 4.
+WHICH VERSIONS WORK
+-------------------
+1) GOG build - works directly.
 
-  WayOfTheSamurai4.exe
-    size   : 6,719,488 bytes
-    SHA256 : CBF3BE3C0D4A68C7A1A2BEF919F74D567AA687CD4A1A21B210A0CE5DCE3780C5
+     WayOfTheSamurai4.exe
+     SHA256 CBF3BE3C0D4A68C7A1A2BEF919F74D567AA687CD4A1A21B210A0CE5DCE3780C5
+
+2) Steam build - ONLY after you unpack it yourself.
+
+   The Steam executable ships wrapped in SteamStub DRM: its code is
+   encrypted on disk, so there is literally nothing to patch. Unpack it
+   with a tool such as Steamless, replace WayOfTheSamurai4.exe with the
+   unpacked executable, and then run this patcher.
+
+     unpacked WayOfTheSamurai4.exe
+     SHA256 DC7F896B0C76BC4EEAFF031638CA6521613A6B444FBC27765AEEDDF2504BA597
+
+   This package does NOT unpack anything for you and does not ship an
+   unpacked executable. If you run it against the still-packed Steam
+   exe it will tell you so and change nothing.
+
+   Note the Steam release is a DIFFERENT COMPILATION from the GOG one -
+   not a repack - so it needed its own set of addresses. The patcher
+   detects which edition it is looking at and applies the right one.
+
+Both editions share identical game data, so the motion-data patch is
+the same for both.
 
   Common\Character\Action\MotionDatabase.l
-    size   : 202,086 bytes
-    SHA256 : 50829EDF1A6D934CBC7FB758259A421DF464DFFE877A7CCF7CD8FD13943EE7A1
-
-THE STEAM VERSION WILL NOT WORK. Its executable is wrapped in
-SteamStub DRM (the entry point sits in a ".bind" section and the real
-code is encrypted on disk), so there is nothing to patch. This is not
-something the patch can work around. Decrypted version may work.
-
-The patcher verifies both files by SHA256 and refuses to touch
-anything if they do not match, so trying is harmless.
+  SHA256 50829EDF1A6D934CBC7FB758259A421DF464DFFE877A7CCF7CD8FD13943EE7A1
 
 
 INSTALL
@@ -55,6 +66,9 @@ It backs up the originals (WayOfTheSamurai4.exe.orig and
 MotionDatabase.l.orig_bak), builds the 60/90/120 variants of both
 files, and installs 60 fps. No admin rights needed.
 
+Everything is verified by SHA256 first; an unrecognised build is
+refused rather than corrupted.
+
 
 SWITCHING
 ---------
@@ -62,8 +76,7 @@ Run SetFramerate.bat and pick 30 / 60 / 90 / 120. It swaps BOTH the
 exe and the motion data - they must always match, which is why you
 should switch with this tool rather than copying files by hand.
 
-Close the game first; Windows will not replace a running exe.
-
+Close the game first :p
 
 60 FPS IS THE SWEET SPOT
 ------------------------
@@ -82,7 +95,8 @@ oversights. If anything feels off at 120, drop to 60.
 
 Also note: because the engine is frame-count based, the game has no
 true variable framerate. If your PC cannot hold the target rate, the
-game runs in slow motion rather than dropping frames.
+game runs in slow motion rather than dropping frames. Pick a rate your
+machine can actually sustain.
 
 
 UNINSTALL
@@ -95,24 +109,20 @@ TECHNICAL SUMMARY
 -----------------
 Per selected rate R, from stock:
 
-  * frame cap: the double at 0x8d95a0 set to 1/R
-  * all 40 "1/30" float time constants in the data sections set to 1/R
-    (these drive animation playback, movement velocity, camera, menus
-    and sound; halving only some of them leaves systems at 2x)
+  * frame cap set to 1/R
+  * every "1/30" float time constant in the data sections set to 1/R
+    (40 of them on GOG, 39 on Steam). These drive animation playback,
+    movement velocity, camera, menus and sound; halving only some of
+    them leaves systems running fast.
   * MotionDatabase.l: EndFrame, LoopStart, LoopEnd and InterpFrame
     scaled by R/30, so actions complete against the faster frame
     counter. Event, sound, effect, cancel and derivation frames are
     deliberately NOT scaled - scaling those breaks combat timing.
-  * animation event window (0x450d4e) repointed to 0.5x(30/R), so
-    motion sounds and effects fire exactly once per event instead of
-    R/30 times
-  * PhysX fixed timestep (0x8f9f24) set to 1/R
-  * Spring Harvest drain constant (0x8d947c) scaled by 30/R
-  * a small code hook that watches the script/event system and drops
-    the cap and all 40 constants to 1/30 while a cutscene or menu is
-    active, restoring 1/R afterwards
+  * animation event window scaled to 0.5x(30/R), so motion sounds and
+    effects fire exactly once per event instead of R/30 times
+  * PhysX fixed timestep set to 1/R
+  * Spring Harvest drain constant scaled by 30/R
+  * a small code hook that watches the script/event system state and
+    drops the cap and all the time constants to 1/30 while a cutscene
+    or menu is active, restoring 1/R afterwards
 
-The exe also has ASLR disabled (DYNAMIC_BASE cleared) because the
-injected code uses absolute addresses.
-
-Enjoy :)
