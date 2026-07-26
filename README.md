@@ -22,7 +22,7 @@ and refuses to write anything if they do not match.
 INSTALL
 -------
 1. Copy Install.bat, patch.ps1 and "Switch Framerate.bat" into the
-   game folder - the one containing WayOfTheSamurai3.exe.
+   game folder - the one containing WayOfTheSamurai3 or 4 .exe.
 2. Run Install.bat.
 
 It backs up your original exe to WayOfTheSamurai3.exe.orig, builds the
