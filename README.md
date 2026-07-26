@@ -61,24 +61,4 @@ you, without modifying anything.
 Be aware the Steam release may be wrapped in SteamStub DRM, which
 encrypts the executable's code section on disk. May work if decrypted.
 
-
-Summary
------------------
-170 bytes changed across 18 sites. Three small code snips are placed 
-at the end of the .text section, so the file layout and section sizes are untouched.
-
-  * frame gate (0x403510) - each frame sets the frame interval to
-    1/30 when the engine is in event mode, otherwise 1/<target>.
-    Event mode is the engine's own state: [[0x94dadc]+0x70] == 2 or 3,
-    the same field 27 call sites in the script/scene code gate on.
-  * script Wait (0x56845c) - wait counts are authored for 30 fps, so
-    they are scaled by target/30 during gameplay and left alone in
-    cutscenes.
-  * animation sound-key window (0x42e319) - the window is one authored
-    frame wide, which spans two rendered frames at 60 fps and makes
-    every animation sound fire twice. Now its derived from the frame
-    interval, so should be correct at any rate.
-  * motion blend length (0x430f2c, 0x431945) - doubled.
-  * SetFrameRate (0x4034d1) - startup default.
-
 The engine's content rate stays at 30 ticks.
