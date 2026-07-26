@@ -52,13 +52,7 @@ You can then delete the .60fps_v9 / .90fps_v9 /
 
 STEAM VERSION
 -------------
-Untested - this was developed against the GOG build only.
-
-Just run Install.bat and see. If the Steam exe happens to be the same
-build, it will work. If it differs at all, the patcher stops and tells
-you, without modifying anything.
-
-Be aware the Steam release may be wrapped in SteamStub DRM, which
-encrypts the executable's code section on disk. May work if decrypted.
+WOTS3 should work out of box for STEAM. WOTS4 requires a decrypted .exe due to
+STEAM DRAM. STEAMLESS should work.
 
 The engine's content rate stays at 30 ticks.
