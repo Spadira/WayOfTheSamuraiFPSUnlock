@@ -13,7 +13,7 @@ Cutscenes are deliberately left at 30 fps. Their sequencing is tied to the rende
 
 REQUIREMENTS
 ------------
-GOG build of Way of the Samurai 3 or 4. Steam build -MAY- work if de-encrytped.
+GOG build of Way of the Samurai 3 or 4. Steam build works if .exe de-encrytped.
 
 The patcher should be safe to test, it checks all 18 patch sites byte-for-byte against your exe 
 and refuses to write anything if they do not match.
